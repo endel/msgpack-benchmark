@@ -1,4 +1,4 @@
-# msgpack-benchmarks.js
+# msgpack benchmarks for JavaScript
 
 This repository aims to benchmark each msgpack implementation for JavaScript.
 
