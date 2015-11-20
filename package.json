@@ -1,0 +1,22 @@
+{
+  "name": "msgpack.js",
+  "version": "1.0.0",
+  "description": "benchmark between multiple msgpack implementations for JavaScript/Node",
+  "main": "index.js",
+  "scripts": {
+    "start": "node ./benchmark.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Endel Dreyer",
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {
+    "benchmark": "^1.0.0",
+    "mocha": "^2.3.4",
+    "msgpack": "^1.0.2",
+    "msgpack-js-browser": "^0.1.4",
+    "msgpack-js-v5": "^0.3.0-v5",
+    "msgpack-lite": "^0.1.13",
+    "msgpack5": "^3.3.0"
+  }
+}
