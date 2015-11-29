@@ -4,8 +4,6 @@
 //
 var _bin2num    = {}, // BinaryStringToNumber   { "\00": 0, ... "\ff": 255 }
     _num2bin    = {}, // NumberToBinaryString   { 0: "\00", ... 255: "\ff" }
-    _num2b64    = ("ABCDEFGHIJKLMNOPQRSTUVWXYZ" +
-                   "abcdefghijklmnopqrstuvwxyz0123456789+/").split(""),
     _buf        = [], // decode buffer
     _idx        = 0,  // decode buffer[index]
     _error      = 0,  // msgpack.pack() error code. 1 = CYCLIC_REFERENCE_ERROR
@@ -18,6 +16,7 @@ var _bin2num    = {}, // BinaryStringToNumber   { "\00": 0, ... "\ff": 255 }
     _toString   = String.fromCharCode, // CharCode/ByteArray to String
     _MAX_DEPTH  = 512;
 
+// msgpack.pack
 function msgpackpack(data,       // @param Mix:
                      toString) { // @param Boolean(= false):
                                  // @return ByteArray/BinaryString/false:
@@ -34,7 +33,19 @@ function msgpackpack(data,       // @param Mix:
                              : byteArray;
 }
 
+// msgpack.unpack
+function msgpackunpack(data) { // @param BinaryString/ByteArray:
+                               // @return Mix/undefined:
+                               //       undefined is error return
+    //  [1][String to mix]    msgpack.unpack("...") -> {}
+    //  [2][ByteArray to mix] msgpack.unpack([...]) -> {}
 
+    _buf = typeof data === "string" ? toByteArray(data) : data;
+    _idx = -1;
+    return decode(); // mix or undefined
+}
+
+// inner - encoder
 function encode(rv,      // @param ByteArray: result
                 mix,     // @param Mix: source data
                 depth) { // @param Number: depth
@@ -222,6 +233,158 @@ function encode(rv,      // @param ByteArray: result
     return rv;
 }
 
+// inner - decoder
+function decode() { // @return Mix:
+    var size, i, iz, c, num = 0,
+        sign, exp, frac, ary, hash,
+        buf = _buf, type = buf[++_idx];
+
+    if (type >= 0xe0) {             // Negative FixNum (111x xxxx) (-32 ~ -1)
+        return type - 0x100;
+    }
+    if (type < 0xc0) {
+        if (type < 0x80) {          // Positive FixNum (0xxx xxxx) (0 ~ 127)
+            return type;
+        }
+        if (type < 0x90) {          // FixMap (1000 xxxx)
+            num  = type - 0x80;
+            type = 0x80;
+        } else if (type < 0xa0) {   // FixArray (1001 xxxx)
+            num  = type - 0x90;
+            type = 0x90;
+        } else { // if (type < 0xc0) {   // FixRaw (101x xxxx)
+            num  = type - 0xa0;
+            type = 0xa0;
+        }
+    }
+    switch (type) {
+    case 0xc0:  return null;
+    case 0xc2:  return false;
+    case 0xc3:  return true;
+    case 0xca:  // float
+                num = buf[++_idx] * 0x1000000 + (buf[++_idx] << 16) +
+                                                (buf[++_idx] <<  8) + buf[++_idx];
+                sign =  num & 0x80000000;    //  1bit
+                exp  = (num >> 23) & 0xff;   //  8bits
+                frac =  num & 0x7fffff;      // 23bits
+                if (!num || num === 0x80000000) { // 0.0 or -0.0
+                    return 0;
+                }
+                if (exp === 0xff) { // NaN or Infinity
+                    return frac ? NaN : Infinity;
+                }
+                return (sign ? -1 : 1) *
+                            (frac | 0x800000) * Math.pow(2, exp - 127 - 23); // 127: bias
+    case 0xcb:  // double
+                num = buf[++_idx] * 0x1000000 + (buf[++_idx] << 16) +
+                                                (buf[++_idx] <<  8) + buf[++_idx];
+                sign =  num & 0x80000000;    //  1bit
+                exp  = (num >> 20) & 0x7ff;  // 11bits
+                frac =  num & 0xfffff;       // 52bits - 32bits (high word)
+                if (!num || num === 0x80000000) { // 0.0 or -0.0
+                    _idx += 4;
+                    return 0;
+                }
+                if (exp === 0x7ff) { // NaN or Infinity
+                    _idx += 4;
+                    return frac ? NaN : Infinity;
+                }
+                num = buf[++_idx] * 0x1000000 + (buf[++_idx] << 16) +
+                                                (buf[++_idx] <<  8) + buf[++_idx];
+                return (sign ? -1 : 1) *
+                            ((frac | 0x100000) * Math.pow(2, exp - 1023 - 20) // 1023: bias
+                             + num * Math.pow(2, exp - 1023 - 52));
+    // 0xcf: uint64, 0xce: uint32, 0xcd: uint16
+    case 0xcf:  num =  buf[++_idx] * 0x1000000 + (buf[++_idx] << 16) +
+                                                 (buf[++_idx] <<  8) + buf[++_idx];
+                return num * 0x100000000 +
+                       buf[++_idx] * 0x1000000 + (buf[++_idx] << 16) +
+                                                 (buf[++_idx] <<  8) + buf[++_idx];
+    case 0xce:  num += buf[++_idx] * 0x1000000 + (buf[++_idx] << 16);
+    case 0xcd:  num += buf[++_idx] << 8;
+    case 0xcc:  return num + buf[++_idx];
+    // 0xd3: int64, 0xd2: int32, 0xd1: int16, 0xd0: int8
+    case 0xd3:  num = buf[++_idx];
+                if (num & 0x80) { // sign -> avoid overflow
+                    return ((num         ^ 0xff) * 0x100000000000000 +
+                            (buf[++_idx] ^ 0xff) *   0x1000000000000 +
+                            (buf[++_idx] ^ 0xff) *     0x10000000000 +
+                            (buf[++_idx] ^ 0xff) *       0x100000000 +
+                            (buf[++_idx] ^ 0xff) *         0x1000000 +
+                            (buf[++_idx] ^ 0xff) *           0x10000 +
+                            (buf[++_idx] ^ 0xff) *             0x100 +
+                            (buf[++_idx] ^ 0xff) + 1) * -1;
+                }
+                return num         * 0x100000000000000 +
+                       buf[++_idx] *   0x1000000000000 +
+                       buf[++_idx] *     0x10000000000 +
+                       buf[++_idx] *       0x100000000 +
+                       buf[++_idx] *         0x1000000 +
+                       buf[++_idx] *           0x10000 +
+                       buf[++_idx] *             0x100 +
+                       buf[++_idx];
+    case 0xd2:  num  =  buf[++_idx] * 0x1000000 + (buf[++_idx] << 16) +
+                       (buf[++_idx] << 8) + buf[++_idx];
+                return num < 0x80000000 ? num : num - 0x100000000; // 0x80000000 * 2
+    case 0xd1:  num  = (buf[++_idx] << 8) + buf[++_idx];
+                return num < 0x8000 ? num : num - 0x10000; // 0x8000 * 2
+    case 0xd0:  num  =  buf[++_idx];
+                return num < 0x80 ? num : num - 0x100; // 0x80 * 2
+    // 0xdb: str32, 0xda: str16, 0xd9: str8, 0xa0: fixstr
+    case 0xdb:  num += buf[++_idx] * 0x1000000 + (buf[++_idx] << 16);
+    case 0xda:  num += buf[++_idx] << 8;
+    case 0xd9:  num += buf[++_idx];
+    case 0xa0:  // utf8.decode
+                for (ary = [], i = _idx, iz = i + num; i < iz; ) {
+                    c = buf[++i]; // lead byte
+                    ary.push(c < 0x80 ? c : // ASCII(0x00 ~ 0x7f)
+                             c < 0xe0 ? ((c & 0x1f) <<  6 | (buf[++i] & 0x3f)) :
+                                        ((c & 0x0f) << 12 | (buf[++i] & 0x3f) << 6
+                                                          | (buf[++i] & 0x3f)));
+                }
+                _idx = i;
+                return ary.length < 10240 ? _toString.apply(null, ary)
+                                          : byteArrayToByteString(ary);
+    // 0xc6: bin32, 0xc5: bin16, 0xc4: bin8
+    case 0xc6:  num += buf[++_idx] * 0x1000000 + (buf[++_idx] << 16);
+    case 0xc5:  num += buf[++_idx] << 8;
+    case 0xc4:  num += buf[++_idx];
+                var end = ++_idx + num
+                var ret = buf.slice(_idx, end);
+                _idx += num;
+                return ret;
+    // 0xdf: map32, 0xde: map16, 0x80: map
+    case 0xdf:  num +=  buf[++_idx] * 0x1000000 + (buf[++_idx] << 16);
+    case 0xde:  num += (buf[++_idx] << 8)       +  buf[++_idx];
+    case 0x80:  hash = {};
+                while (num--) {
+                    // make key/value pair
+                    size = buf[++_idx] - 0xa0;
+
+                    for (ary = [], i = _idx, iz = i + size; i < iz; ) {
+                        c = buf[++i]; // lead byte
+                        ary.push(c < 0x80 ? c : // ASCII(0x00 ~ 0x7f)
+                                 c < 0xe0 ? ((c & 0x1f) <<  6 | (buf[++i] & 0x3f)) :
+                                            ((c & 0x0f) << 12 | (buf[++i] & 0x3f) << 6
+                                                              | (buf[++i] & 0x3f)));
+                    }
+                    _idx = i;
+                    hash[_toString.apply(null, ary)] = decode();
+                }
+                return hash;
+    // 0xdd: array32, 0xdc: array16, 0x90: array
+    case 0xdd:  num +=  buf[++_idx] * 0x1000000 + (buf[++_idx] << 16);
+    case 0xdc:  num += (buf[++_idx] << 8)       +  buf[++_idx];
+    case 0x90:  ary = [];
+                while (num--) {
+                    ary.push(decode());
+                }
+                return ary;
+    }
+    return;
+}
+
+// inner - byteArray To ByteString
 function byteArrayToByteString(byteArray) { // @param ByteArray
                                             // @return String
     // http://d.hatena.ne.jp/uupaa/20101128
@@ -238,17 +401,44 @@ function byteArrayToByteString(byteArray) { // @param ByteArray
     return rv.join("");
 }
 
-// msgpack.unpack
-function msgpackunpack(data) { // @param BinaryString/ByteArray:
-                               // @return Mix/undefined:
-                               //       undefined is error return
-    //  [1][String to mix]    msgpack.unpack("...") -> {}
-    //  [2][ByteArray to mix] msgpack.unpack([...]) -> {}
+// inner - BinaryString To ByteArray
+function toByteArray(data) { // @param BinaryString: "\00\01"
+                             // @return ByteArray: [0x00, 0x01]
+    var rv = [], bin2num = _bin2num, remain,
+        ary = data.split(""),
+        i = -1, iz;
 
-    _buf = typeof data === "string" ? toByteArray(data) : data;
-    _idx = -1;
-    return decode(); // mix or undefined
+    iz = ary.length;
+    remain = iz % 8;
+
+    while (remain--) {
+        ++i;
+        rv[i] = bin2num[ary[i]];
+    }
+    remain = iz >> 3;
+    while (remain--) {
+        rv.push(bin2num[ary[++i]], bin2num[ary[++i]],
+                bin2num[ary[++i]], bin2num[ary[++i]],
+                bin2num[ary[++i]], bin2num[ary[++i]],
+                bin2num[ary[++i]], bin2num[ary[++i]]);
+    }
+    return rv;
 }
+
+// --- init ---
+(function() {
+    var i = 0, v;
+
+    for (; i < 0x100; ++i) {
+        v = _toString(i);
+        _bin2num[v] = i; // "\00" -> 0x00
+        _num2bin[i] = v; //     0 -> "\00"
+    }
+    // http://twitter.com/edvakf/statuses/15576483807
+    for (i = 0x80; i < 0x100; ++i) { // [Webkit][Gecko]
+        _bin2num[_toString(0xf700 + i)] = i; // "\f780" -> 0x80
+    }
+})();
 
 module.exports.pack = msgpackpack
 module.exports.unpack = msgpackunpack

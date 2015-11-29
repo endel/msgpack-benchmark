@@ -4,7 +4,7 @@
   "description": "benchmark between multiple msgpack implementations for JavaScript/Node",
   "main": "index.js",
   "scripts": {
-    "start": "node ./benchmark.js",
+    "start": "node --harmony ./benchmark.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Endel Dreyer",

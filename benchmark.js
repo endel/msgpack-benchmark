@@ -1,46 +1,59 @@
+"use strict";
+
 var Benchmark = require('benchmark')
   , fs = require('fs')
 
   // msgpack implementations
-  , msgpackNode = require('msgpack')
-  , msgpackJavascript = require('./msgpack-javascript')
-  , msgpackv5 = require('msgpack-js-v5')
-  , msgpackLite = require('msgpack-lite')
+  , implementations = {
+    msgpack: {
+      encode: require('msgpack').pack,
+      decode: require('msgpack').unpack
+    },
+    'msgpack-javascript': {
+      encode: require('./msgpack-javascript').pack,
+      decode: require('./msgpack-javascript').unpack
+    },
+    'msgpack-js-v5': {
+      encode: require('msgpack-js-v5').encode,
+      decode: require('msgpack-js-v5').decode
+    },
+    'msgpack-lite': {
+      encode: require('msgpack-lite').encode,
+      decode: require('msgpack-lite').decode
+    },
+    'JSON': {
+      encode: JSON.stringify,
+      decode: JSON.parse
+    }
+  }
 
-  , sampleFiles = ["sample-small.json", "sample-medium.json", "sample-large.json"]
+  , sampleFiles = ["sample-datatypes.json", "sample-small.json", "sample-medium.json", "sample-large.json"]
+
+
+function validate(name, data, encoded) {
+  if (JSON.stringify(data) !== JSON.stringify(implementations[name].decode(encoded))) {
+    throw new Error("Bad implementation: " + name)
+  }
+}
 
 for (var i=0; i<sampleFiles.length; i++) {
-  var data = fs.readFileSync(sampleFiles[i], "utf-8").toString()
+  let data = JSON.parse(fs.readFileSync(sampleFiles[i], "utf-8").toString())
+    , encodeSuite = new Benchmark.Suite()
+    , decodeSuite = new Benchmark.Suite()
 
-    , toUnpack = msgpackJavascript.pack(data)
-    , toUnpackBuffer = new Buffer(msgpackJavascript.pack(data))
-    , toUnpackBufferV5 = msgpackv5.encode(data)
-    , toParse = JSON.stringify(data)
+  console.log("\n" + sampleFiles[i] + ":")
 
-  console.log("")
-  console.log(sampleFiles[i])
-
-  // Pack suite
-  var packSuite = (new Benchmark.Suite())
-    .add('(encode) msgpack-javascript', function() { msgpackJavascript.pack(data) })
-    .add('(encode) msgpack-node', function() { msgpackNode.pack(data) })
-    .add('(encode) msgpack-js-v5', function() { msgpackv5.encode(data) })
-    .add('(encode) msgpack-lite', function() { msgpackLite.encode(data) })
-    .add('(encode) JSON', function() { JSON.stringify(data) })
-    .on('cycle', function(event) { console.log(String(event.target)); })
-    // .on('complete', function() { console.log('Fastest is ' + this.filter('fastest').pluck('name')); })
-    .run();
+  for (let name in implementations) {
+    implementations[name].toDecode = implementations[name].encode(data)
+    validate(name, data, implementations[name].toDecode)
+    encodeSuite.add('(encode) ' + name, function() { implementations[name].encode(data) })
+    decodeSuite.add('(decode) ' + name, function() { implementations[name].decode(implementations[name].toDecode) })
+  }
+  encodeSuite.on('cycle', function(event) { console.log(String(event.target)); })
+  encodeSuite.run()
 
   console.log("")
 
-  // Unpack suite
-  var unpackSuite = (new Benchmark.Suite())
-    .add('(decode) msgpack-javascript', function() { msgpackJavascript.pack(toUnpack) })
-    .add('(decode) msgpack-node', function() { msgpackNode.pack(toUnpack) })
-    .add('(decode) msgpack-js-v5', function() { msgpackv5.decode(toUnpackBufferV5) })
-    .add('(decode) msgpack-lite', function() { msgpackLite.decode(toUnpack) })
-    .add('(decode) JSON', function() { JSON.parse(toParse) })
-    .on('cycle', function(event) { console.log(String(event.target)); })
-    // .on('complete', function() { console.log('Fastest is ' + this.filter('fastest').pluck('name')); })
-    .run()
+  decodeSuite.on('cycle', function(event) { console.log(String(event.target)); })
+  decodeSuite.run()
 }
