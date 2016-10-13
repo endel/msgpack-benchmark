@@ -1,5 +1,7 @@
 # msgpack benchmarks for JavaScript
 
+[![Build Status](https://travis-ci.org/endel/msgpack-benchmark.svg?branch=master)](https://travis-ci.org/endel/msgpack-benchmark)
+
 This repository aims to benchmark each msgpack implementation for JavaScript.
 
 There is four input files to encode/decode.
