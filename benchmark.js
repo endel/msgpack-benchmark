@@ -21,6 +21,10 @@ var Benchmark = require('benchmark')
       encode: require('msgpack-lite').encode,
       decode: require('msgpack-lite').decode
     },
+    'notepack': {
+      encode: require('notepack').encode,
+      decode: require('notepack').decode
+    },
     'JSON': {
       encode: JSON.stringify,
       decode: JSON.parse
