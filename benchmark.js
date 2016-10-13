@@ -3,6 +3,8 @@
 var Benchmark = require('benchmark')
   , fs = require('fs')
 
+  , msgpack5 = require('msgpack5')()
+
   // msgpack implementations
   , implementations = {
     msgpack: {
@@ -20,6 +22,10 @@ var Benchmark = require('benchmark')
     'msgpack-lite': {
       encode: require('msgpack-lite').encode,
       decode: require('msgpack-lite').decode
+    },
+    'msgpack5': {
+      encode: msgpack5.encode,
+      decode: msgpack5.decode
     },
     'notepack': {
       encode: require('notepack').encode,
@@ -45,7 +51,9 @@ for (var i=0; i<sampleFiles.length; i++) {
     , encodeSuite = new Benchmark.Suite()
     , decodeSuite = new Benchmark.Suite()
 
-  console.log("\n" + sampleFiles[i] + ":")
+  console.log("")
+  console.log("**" + sampleFiles[i] + ":**")
+  console.log("")
 
   for (let name in implementations) {
     implementations[name].toDecode = implementations[name].encode(data)
@@ -54,10 +62,17 @@ for (var i=0; i<sampleFiles.length; i++) {
     decodeSuite.add('(decode) ' + name, function() { implementations[name].decode(implementations[name].toDecode) })
   }
   encodeSuite.on('cycle', function(event) { console.log(String(event.target)); })
+
+  console.log("```")
   encodeSuite.run()
+  console.log("```")
 
   console.log("")
 
   decodeSuite.on('cycle', function(event) { console.log(String(event.target)); })
+
+  console.log("```")
   decodeSuite.run()
+  console.log("```")
+
 }
