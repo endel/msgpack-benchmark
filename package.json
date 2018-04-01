@@ -4,19 +4,19 @@
   "description": "benchmark between multiple msgpack implementations for JavaScript/Node",
   "main": "index.js",
   "scripts": {
-    "start": "node --harmony ./benchmark.js",
+    "start": "node ./benchmark.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Endel Dreyer",
   "license": "MIT",
-  "dependencies": {},
   "devDependencies": {
     "benchmark": "^1.0.0",
     "mocha": "^2.3.4",
     "msgpack": "^1.0.2",
     "msgpack-js-v5": "^0.3.0-v5",
-    "msgpack-lite": "^0.1.13",
-    "msgpack5": "^3.4.1",
-    "notepack": "0.0.2"
+    "msgpack-lite": "^0.1.26",
+    "msgpack5": "^4.0.2",
+    "notepack": "^0.0.2",
+    "notepack.io": "^2.1.2"
   }
 }
