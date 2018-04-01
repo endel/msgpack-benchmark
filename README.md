@@ -19,6 +19,7 @@ MsgPack implementations:
 - [msgpack-lite](https://www.npmjs.com/package/msgpack-lite)
 - [msgpack5](https://www.npmjs.com/package/msgpack5)
 - [notepack](https://www.npmjs.com/package/notepack)
+- [notepack.io](https://www.npmjs.com/package/notepack.io)
 
 ## Benchmarks
 
