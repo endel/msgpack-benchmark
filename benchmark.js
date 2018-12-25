@@ -35,9 +35,17 @@ var Benchmark = require('benchmark')
       encode: require('notepack.io').encode,
       decode: require('notepack.io').decode
     },
+    'notepack.io (browser)': {
+      encode: require('notepack.io/browser/encode'),
+      decode: require('notepack.io/browser/decode')
+    },
     'what-the-pack': {
       encode: require('what-the-pack').encode,
       decode: require('what-the-pack').decode
+    },
+    'what-the-pack (browser)': {
+      encode: require('what-the-pack/browser').encode,
+      decode: require('what-the-pack/browser').decode
     },
     'JSON': {
       encode: JSON.stringify,

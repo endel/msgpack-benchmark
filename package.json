@@ -10,16 +10,14 @@
   "author": "Endel Dreyer",
   "license": "MIT",
   "devDependencies": {
-    "benchmark": "^1.0.0",
-    "mocha": "^2.3.4",
+    "benchmark": "^2.1.4",
+    "mocha": "^5.2.0",
     "msgpack": "^1.0.2",
     "msgpack-js-v5": "^0.3.0-v5",
     "msgpack-lite": "^0.1.26",
-    "msgpack5": "^4.0.2",
+    "msgpack5": "^4.2.1",
     "notepack": "^0.0.2",
-    "notepack.io": "^2.1.2"
-  },
-  "dependencies": {
+    "notepack.io": "^2.2.0",
     "what-the-pack": "^1.1.7"
   }
 }
