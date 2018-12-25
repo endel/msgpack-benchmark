@@ -18,5 +18,8 @@
     "msgpack5": "^4.0.2",
     "notepack": "^0.0.2",
     "notepack.io": "^2.1.2"
+  },
+  "dependencies": {
+    "what-the-pack": "^1.1.7"
   }
 }

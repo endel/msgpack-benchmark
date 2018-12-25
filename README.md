@@ -26,97 +26,105 @@ MsgPack implementations:
 **sample-datatypes.json:**
 
 ```
-(encode) msgpack x 31,679 ops/sec ±2.30% (87 runs sampled)
-(encode) msgpack-javascript x 76,229 ops/sec ±1.43% (92 runs sampled)
-(encode) msgpack-js-v5 x 18,931 ops/sec ±1.78% (89 runs sampled)
-(encode) msgpack-lite x 51,171 ops/sec ±1.68% (88 runs sampled)
-(encode) msgpack5 x 7,101 ops/sec ±5.70% (68 runs sampled)
-(encode) notepack x 61,799 ops/sec ±1.77% (90 runs sampled)
-(encode) notepack.io x 62,923 ops/sec ±1.57% (89 runs sampled)
-(encode) JSON x 144,031 ops/sec ±1.69% (88 runs sampled)
+(encode) msgpack x 36,137 ops/sec ±1.02% (96 runs sampled)
+(encode) msgpack-javascript x 60,000 ops/sec ±0.98% (95 runs sampled)
+(encode) msgpack-js-v5 x 21,824 ops/sec ±0.53% (98 runs sampled)
+(encode) msgpack-lite x 56,664 ops/sec ±2.05% (93 runs sampled)
+(encode) msgpack5 x 7,052 ops/sec ±5.04% (75 runs sampled)
+(encode) notepack x 62,564 ops/sec ±0.76% (97 runs sampled)
+(encode) notepack.io x 68,818 ops/sec ±1.09% (97 runs sampled)
+(encode) what-the-pack x 86,155 ops/sec ±1.12% (95 runs sampled)
+(encode) JSON x 158,738 ops/sec ±0.90% (95 runs sampled)
 ```
 
 ```
-(decode) msgpack x 42,631 ops/sec ±1.74% (91 runs sampled)
-(decode) msgpack-javascript x 31,360 ops/sec ±1.78% (90 runs sampled)
-(decode) msgpack-js-v5 x 36,643 ops/sec ±1.83% (89 runs sampled)
-(decode) msgpack-lite x 29,679 ops/sec ±1.45% (90 runs sampled)
-(decode) msgpack5 x 15,890 ops/sec ±1.95% (88 runs sampled)
-(decode) notepack x 46,356 ops/sec ±2.04% (90 runs sampled)
-(decode) notepack.io x 46,797 ops/sec ±1.82% (91 runs sampled)
-(decode) JSON x 76,760 ops/sec ±1.41% (92 runs sampled)
+(decode) msgpack x 47,903 ops/sec ±0.74% (100 runs sampled)
+(decode) msgpack-javascript x 35,288 ops/sec ±0.81% (99 runs sampled)
+(decode) msgpack-js-v5 x 42,214 ops/sec ±1.37% (91 runs sampled)
+(decode) msgpack-lite x 32,044 ops/sec ±1.23% (99 runs sampled)
+(decode) msgpack5 x 17,649 ops/sec ±1.42% (91 runs sampled)
+(decode) notepack x 52,600 ops/sec ±0.68% (99 runs sampled)
+(decode) notepack.io x 52,481 ops/sec ±1.04% (94 runs sampled)
+(decode) what-the-pack x 52,910 ops/sec ±0.76% (96 runs sampled)
+(decode) JSON x 81,521 ops/sec ±0.95% (98 runs sampled)
 ```
 
 **sample-small.json:**
 
 ```
-(encode) msgpack x 185,626 ops/sec ±3.45% (84 runs sampled)
-(encode) msgpack-javascript x 1,264,032 ops/sec ±1.48% (89 runs sampled)
-(encode) msgpack-js-v5 x 146,422 ops/sec ±1.41% (90 runs sampled)
-(encode) msgpack-lite x 229,091 ops/sec ±3.43% (77 runs sampled)
-(encode) msgpack5 x 42,217 ops/sec ±3.87% (67 runs sampled)
-(encode) notepack x 717,337 ops/sec ±1.55% (89 runs sampled)
-(encode) notepack.io x 735,478 ops/sec ±1.72% (88 runs sampled)
-(encode) JSON x 957,782 ops/sec ±1.58% (89 runs sampled)
+(encode) msgpack x 213,783 ops/sec ±3.24% (91 runs sampled)
+(encode) msgpack-javascript x 1,155,057 ops/sec ±0.83% (97 runs sampled)
+(encode) msgpack-js-v5 x 157,175 ops/sec ±1.34% (95 runs sampled)
+(encode) msgpack-lite x 248,210 ops/sec ±4.56% (74 runs sampled)
+(encode) msgpack5 x 60,948 ops/sec ±2.63% (67 runs sampled)
+(encode) notepack x 622,046 ops/sec ±0.89% (98 runs sampled)
+(encode) notepack.io x 614,405 ops/sec ±0.99% (96 runs sampled)
+(encode) what-the-pack x 708,745 ops/sec ±2.06% (97 runs sampled)
+(encode) JSON x 1,021,835 ops/sec ±3.66% (97 runs sampled)
 ```
 
 ```
-(decode) msgpack x 298,856 ops/sec ±1.78% (85 runs sampled)
-(decode) msgpack-javascript x 517,181 ops/sec ±1.55% (89 runs sampled)
-(decode) msgpack-js-v5 x 427,575 ops/sec ±1.93% (92 runs sampled)
-(decode) msgpack-lite x 298,966 ops/sec ±1.73% (89 runs sampled)
-(decode) msgpack5 x 94,500 ops/sec ±2.84% (80 runs sampled)
-(decode) notepack x 633,236 ops/sec ±1.73% (88 runs sampled)
-(decode) notepack.io x 615,991 ops/sec ±1.73% (91 runs sampled)
-(decode) JSON x 763,951 ops/sec ±2.01% (86 runs sampled)
+(decode) msgpack x 299,782 ops/sec ±0.82% (94 runs sampled)
+(decode) msgpack-javascript x 547,010 ops/sec ±0.95% (99 runs sampled)
+(decode) msgpack-js-v5 x 495,856 ops/sec ±1.05% (97 runs sampled)
+(decode) msgpack-lite x 319,632 ops/sec ±0.83% (96 runs sampled)
+(decode) msgpack5 x 118,704 ops/sec ±2.52% (86 runs sampled)
+(decode) notepack x 673,675 ops/sec ±0.83% (99 runs sampled)
+(decode) notepack.io x 686,725 ops/sec ±1.23% (94 runs sampled)
+(decode) what-the-pack x 693,388 ops/sec ±0.77% (96 runs sampled)
+(decode) JSON x 852,372 ops/sec ±0.76% (99 runs sampled)
 ```
 
 **sample-medium.json:**
 
 ```
-(encode) msgpack x 93,360 ops/sec ±1.63% (87 runs sampled)
-(encode) msgpack-javascript x 393,085 ops/sec ±2.33% (89 runs sampled)
-(encode) msgpack-js-v5 x 51,569 ops/sec ±1.75% (92 runs sampled)
-(encode) msgpack-lite x 124,507 ops/sec ±2.12% (82 runs sampled)
-(encode) msgpack5 x 29,548 ops/sec ±3.82% (62 runs sampled)
-(encode) notepack x 196,569 ops/sec ±1.75% (91 runs sampled)
-(encode) notepack.io x 201,604 ops/sec ±1.62% (88 runs sampled)
-(encode) JSON x 556,773 ops/sec ±2.02% (91 runs sampled)
+(encode) msgpack x 107,674 ops/sec ±1.04% (97 runs sampled)
+(encode) msgpack-javascript x 336,931 ops/sec ±0.97% (95 runs sampled)
+(encode) msgpack-js-v5 x 58,043 ops/sec ±0.70% (94 runs sampled)
+(encode) msgpack-lite x 136,709 ops/sec ±3.13% (84 runs sampled)
+(encode) msgpack5 x 38,069 ops/sec ±1.81% (73 runs sampled)
+(encode) notepack x 167,706 ops/sec ±1.07% (97 runs sampled)
+(encode) notepack.io x 202,016 ops/sec ±1.00% (99 runs sampled)
+(encode) what-the-pack x 285,752 ops/sec ±0.53% (95 runs sampled)
+(encode) JSON x 614,931 ops/sec ±0.98% (98 runs sampled)
 ```
 
 ```
-(decode) msgpack x 141,954 ops/sec ±2.10% (86 runs sampled)
-(decode) msgpack-javascript x 134,550 ops/sec ±1.90% (89 runs sampled)
-(decode) msgpack-js-v5 x 110,269 ops/sec ±1.50% (89 runs sampled)
-(decode) msgpack-lite x 76,993 ops/sec ±2.44% (86 runs sampled)
-(decode) msgpack5 x 39,007 ops/sec ±4.17% (74 runs sampled)
-(decode) notepack x 137,717 ops/sec ±1.90% (85 runs sampled)
-(decode) notepack.io x 135,307 ops/sec ±2.30% (81 runs sampled)
-(decode) JSON x 354,497 ops/sec ±3.27% (85 runs sampled)
+(decode) msgpack x 157,733 ops/sec ±0.93% (98 runs sampled)
+(decode) msgpack-javascript x 148,347 ops/sec ±0.85% (98 runs sampled)
+(decode) msgpack-js-v5 x 123,625 ops/sec ±0.84% (97 runs sampled)
+(decode) msgpack-lite x 85,386 ops/sec ±1.20% (100 runs sampled)
+(decode) msgpack5 x 50,776 ops/sec ±2.72% (87 runs sampled)
+(decode) notepack x 166,608 ops/sec ±1.00% (98 runs sampled)
+(decode) notepack.io x 167,376 ops/sec ±0.82% (100 runs sampled)
+(decode) what-the-pack x 166,595 ops/sec ±0.94% (97 runs sampled)
+(decode) JSON x 422,145 ops/sec ±0.87% (97 runs sampled)
 ```
 
 **sample-large.json:**
 
 ```
-(encode) msgpack x 6,312 ops/sec ±1.60% (88 runs sampled)
-(encode) msgpack-javascript x 8,939 ops/sec ±1.39% (93 runs sampled)
-(encode) msgpack-js-v5 x 2,800 ops/sec ±1.52% (90 runs sampled)
-(encode) msgpack-lite x 7,558 ops/sec ±1.71% (88 runs sampled)
-(encode) msgpack5 x 1,978 ops/sec ±3.77% (66 runs sampled)
-(encode) notepack x 8,462 ops/sec ±5.63% (93 runs sampled)
-(encode) notepack.io x 9,006 ops/sec ±1.62% (91 runs sampled)
-(encode) JSON x 27,846 ops/sec ±1.64% (91 runs sampled)
+(encode) msgpack x 7,347 ops/sec ±0.94% (98 runs sampled)
+(encode) msgpack-javascript x 7,879 ops/sec ±0.66% (97 runs sampled)
+(encode) msgpack-js-v5 x 3,212 ops/sec ±0.71% (96 runs sampled)
+(encode) msgpack-lite x 8,361 ops/sec ±2.17% (91 runs sampled)
+(encode) msgpack5 x 2,501 ops/sec ±5.11% (74 runs sampled)
+(encode) notepack x 8,716 ops/sec ±0.73% (99 runs sampled)
+(encode) notepack.io x 8,889 ops/sec ±0.76% (98 runs sampled)
+(encode) what-the-pack x 10,983 ops/sec ±1.01% (96 runs sampled)
+(encode) JSON x 30,333 ops/sec ±0.96% (95 runs sampled)
 ```
 
 ```
-(decode) msgpack x 8,621 ops/sec ±1.74% (90 runs sampled)
-(decode) msgpack-javascript x 4,313 ops/sec ±1.99% (88 runs sampled)
-(decode) msgpack-js-v5 x 5,584 ops/sec ±1.53% (90 runs sampled)
-(decode) msgpack-lite x 3,924 ops/sec ±2.78% (85 runs sampled)
-(decode) msgpack5 x 3,208 ops/sec ±1.80% (88 runs sampled)
-(decode) notepack x 7,926 ops/sec ±1.76% (91 runs sampled)
-(decode) notepack.io x 7,605 ops/sec ±1.78% (89 runs sampled)
-(decode) JSON x 12,076 ops/sec ±1.75% (89 runs sampled)
+(decode) msgpack x 9,936 ops/sec ±0.87% (99 runs sampled)
+(decode) msgpack-javascript x 5,000 ops/sec ±1.01% (95 runs sampled)
+(decode) msgpack-js-v5 x 6,511 ops/sec ±0.90% (98 runs sampled)
+(decode) msgpack-lite x 4,494 ops/sec ±0.90% (99 runs sampled)
+(decode) msgpack5 x 3,481 ops/sec ±1.03% (97 runs sampled)
+(decode) notepack x 9,162 ops/sec ±0.75% (99 runs sampled)
+(decode) notepack.io x 9,053 ops/sec ±0.69% (99 runs sampled)
+(decode) what-the-pack x 9,102 ops/sec ±0.76% (97 runs sampled)
+(decode) JSON x 13,780 ops/sec ±0.93% (95 runs sampled)
 ```
 
 ## Running the benchmarks:

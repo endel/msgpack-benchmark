@@ -35,10 +35,14 @@ var Benchmark = require('benchmark')
       encode: require('notepack.io').encode,
       decode: require('notepack.io').decode
     },
+    'what-the-pack': {
+      encode: require('what-the-pack').encode,
+      decode: require('what-the-pack').decode
+    },
     'JSON': {
       encode: JSON.stringify,
       decode: JSON.parse
-    }
+    },
   }
 
   , sampleFiles = ["sample-datatypes.json", "sample-small.json", "sample-medium.json", "sample-large.json"]
