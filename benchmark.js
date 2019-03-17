@@ -47,6 +47,14 @@ var Benchmark = require('benchmark')
       encode: require('what-the-pack/browser').encode,
       decode: require('what-the-pack/browser').decode
     },
+    'cbor (node)': {
+      encode: require('cbor').encode,
+      decode: require('cbor').decode
+    },
+    'cbor (browser)': {
+      encode: require('cbor-js').encode,
+      decode: require('cbor-js').decode
+    },
     'JSON': {
       encode: JSON.stringify,
       decode: JSON.parse
