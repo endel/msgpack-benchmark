@@ -10,7 +10,7 @@
   "author": "Endel Dreyer",
   "license": "MIT",
   "devDependencies": {
-    "@msgpack/msgpack": "^0.16.0",
+    "@msgpack/msgpack": "^1.0.0",
     "benchmark": "^2.1.4",
     "mocha": "^5.2.0",
     "msgpack-js-v5": "^0.3.0-v5",
