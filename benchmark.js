@@ -7,13 +7,9 @@ var Benchmark = require('benchmark')
 
   // msgpack implementations
   , implementations = {
-    msgpack: {
-      encode: require('msgpack').pack,
-      decode: require('msgpack').unpack
-    },
-    'msgpack-javascript': {
-      encode: require('./msgpack-javascript').pack,
-      decode: require('./msgpack-javascript').unpack
+    '@msgpack/msgpack': {
+      encode: require('@msgpack/msgpack').encode,
+      decode: require('@msgpack/msgpack').decode
     },
     'msgpack-js-v5': {
       encode: require('msgpack-js-v5').encode,
