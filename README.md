@@ -28,6 +28,8 @@ Other serialization methods for comparison:
 
 ## Benchmarks
 
+Results are using Node v12.6.0 on Macbook Air (1.3 GHz Intel Core i5)
+
 **sample-datatypes.json:**
 
 ```
