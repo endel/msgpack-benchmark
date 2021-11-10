@@ -22,6 +22,7 @@
   },
   "dependencies": {
     "cbor": "^4.1.5",
-    "cbor-js": "^0.1.0"
+    "cbor-js": "^0.1.0",
+    "msgpackr": "^1.4.7"
   }
 }

@@ -7,6 +7,10 @@ var Benchmark = require('benchmark')
 
   // msgpack implementations
   , implementations = {
+    'msgpackr': {
+      encode: require("msgpackr").encode,
+      decode: require("msgpackr").decode
+    },
     '@msgpack/msgpack': {
       encode: require('@msgpack/msgpack').encode,
       decode: require('@msgpack/msgpack').decode
@@ -66,7 +70,7 @@ function validate(name, data, encoded) {
   }
 }
 
-for (var i=0; i<sampleFiles.length; i++) {
+for (var i = 0; i < sampleFiles.length; i++) {
   let data = JSON.parse(fs.readFileSync(sampleFiles[i], "utf-8").toString())
     , encodeSuite = new Benchmark.Suite()
     , decodeSuite = new Benchmark.Suite()
@@ -78,10 +82,10 @@ for (var i=0; i<sampleFiles.length; i++) {
   for (let name in implementations) {
     implementations[name].toDecode = implementations[name].encode(data)
     validate(name, data, implementations[name].toDecode)
-    encodeSuite.add('(encode) ' + name, function() { implementations[name].encode(data) })
-    decodeSuite.add('(decode) ' + name, function() { implementations[name].decode(implementations[name].toDecode) })
+    encodeSuite.add('(encode) ' + name, function () { implementations[name].encode(data) })
+    decodeSuite.add('(decode) ' + name, function () { implementations[name].decode(implementations[name].toDecode) })
   }
-  encodeSuite.on('cycle', function(event) { console.log(String(event.target)); })
+  encodeSuite.on('cycle', function (event) { console.log(String(event.target)); })
 
   console.log("```")
   encodeSuite.run()
@@ -89,7 +93,7 @@ for (var i=0; i<sampleFiles.length; i++) {
 
   console.log("")
 
-  decodeSuite.on('cycle', function(event) { console.log(String(event.target)); })
+  decodeSuite.on('cycle', function (event) { console.log(String(event.target)); })
 
   console.log("```")
   decodeSuite.run()
