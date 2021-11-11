@@ -40,12 +40,12 @@ var Benchmark = require('benchmark')
       decode: require('notepack.io/browser/decode')
     },
     'what-the-pack': {
-      encode: require('what-the-pack').encode,
-      decode: require('what-the-pack').decode
+      encode: require('what-the-pack').initialize(2**22).encode,
+      decode: require('what-the-pack').initialize(2**22).decode
     },
     'what-the-pack (browser)': {
-      encode: require('what-the-pack/browser').encode,
-      decode: require('what-the-pack/browser').decode
+      encode: require('what-the-pack/browser').initialize(2**22).encode,
+      decode: require('what-the-pack/browser').initialize(2**22).decode
     },
     'cbor (node)': {
       encode: require('cbor').encode,
@@ -54,6 +54,10 @@ var Benchmark = require('benchmark')
     'cbor (browser)': {
       encode: require('cbor-js').encode,
       decode: require('cbor-js').decode
+    },
+    'cbor-x': {
+      encode: require('cbor-x').encode,
+      decode: require('cbor-x').decode
     },
     'JSON': {
       encode: JSON.stringify,
