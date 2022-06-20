@@ -137,19 +137,24 @@ for (var i=0; i<sampleFiles.length; i++) {
   console.log(" - Encoding winner: `" + results[sampleFile].encode[0].name + "`");
   console.log(" - Decoding winner: `" + results[sampleFile].decode[0].name + "`");
 
+  console.log("<table>");
+  console.log("<tr><th>Encoding</th><th>Decoding</th></tr>");
+  console.log("<tr><td>\n");
 
-  console.log("**encoding**\n");
   console.log("| Implementation | ops/sec |");
   console.log("| ------------- | ------- |");
   results[sampleFile].encode.forEach(entry => {
     console.log("| `" + entry.name + "` | " + formatNumber(entry.opsBySec) + " |");
   });
 
-  console.log("\n**decoding**\n");
+  console.log("\n</td><td>\n");
+
   console.log("| Implementation | ops/sec |");
   console.log("| ------------- | ------- |");
   results[sampleFile].decode.forEach(entry => {
     console.log("| `" + entry.name + "` | " + formatNumber(entry.opsBySec) + " |");
   });
+
+  console.log("\n</td></tr> </table>");
 
 }

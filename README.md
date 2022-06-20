@@ -32,7 +32,9 @@ Results are using Node v16.14.0 on MacBook Pro (M1, 2020).
  - Encoding winner: `msgpackr`
  - Decoding winner: `JSON`
 
-**encoding**
+<table>
+<tr><th>Encoding</th><th>Decoding</th></tr>
+<tr><td>
 
 | Implementation | ops/sec |
 | ------------- | ------- |
@@ -48,7 +50,7 @@ Results are using Node v16.14.0 on MacBook Pro (M1, 2020).
 | `msgpack5` | 73,907 |
 | `msgpack-js-v5` | 37,626 |
 
-**decoding**
+</td><td>
 
 | Implementation | ops/sec |
 | ------------- | ------- |
@@ -64,12 +66,16 @@ Results are using Node v16.14.0 on MacBook Pro (M1, 2020).
 | `msgpack-lite` | 92,610 |
 | `msgpack5` | 66,461 |
 
+</td></tr> </table>
+
 ### sample-small.json
 
  - Encoding winner: `msgpackr`
  - Decoding winner: `msgpackr`
 
-**encoding**
+<table>
+<tr><th>Encoding</th><th>Decoding</th></tr>
+<tr><td>
 
 | Implementation | ops/sec |
 | ------------- | ------- |
@@ -85,7 +91,7 @@ Results are using Node v16.14.0 on MacBook Pro (M1, 2020).
 | `msgpack-js-v5` | 617,212 |
 | `msgpack5` | 425,951 |
 
-**decoding**
+</td><td>
 
 | Implementation | ops/sec |
 | ------------- | ------- |
@@ -101,13 +107,16 @@ Results are using Node v16.14.0 on MacBook Pro (M1, 2020).
 | `msgpack-lite` | 872,539 |
 | `msgpack5` | 629,429 |
 
+</td></tr> </table>
+
 ### sample-medium.json
 
  - Encoding winner: `JSON`
-
  - Decoding winner: `JSON`
 
-**encoding**
+<table>
+<tr><th>Encoding</th><th>Decoding</th></tr>
+<tr><td>
 
 | Implementation | ops/sec |
 | ------------- | ------- |
@@ -123,7 +132,7 @@ Results are using Node v16.14.0 on MacBook Pro (M1, 2020).
 | `msgpack5` | 207,193 |
 | `msgpack-js-v5` | 169,692 |
 
-**decoding**
+</td><td>
 
 | Implementation | ops/sec |
 | ------------- | ------- |
@@ -139,12 +148,16 @@ Results are using Node v16.14.0 on MacBook Pro (M1, 2020).
 | `msgpack-lite` | 268,590 |
 | `msgpack5` | 236,800 |
 
+</td></tr> </table>
+
 ### sample-large.json
 
  - Encoding winner: `JSON`
  - Decoding winner: `JSON`
 
-**encoding**
+<table>
+<tr><th>Encoding</th><th>Decoding</th></tr>
+<tr><td>
 
 | Implementation | ops/sec |
 | ------------- | ------- |
@@ -160,7 +173,7 @@ Results are using Node v16.14.0 on MacBook Pro (M1, 2020).
 | `msgpack5` | 13,324 |
 | `msgpack-js-v5` | 8,006 |
 
-**decoding**
+</td><td>
 
 | Implementation | ops/sec |
 | ------------- | ------- |
@@ -176,6 +189,7 @@ Results are using Node v16.14.0 on MacBook Pro (M1, 2020).
 | `msgpack-lite` | 12,912 |
 | `msgpack5` | 12,315 |
 
+</td></tr> </table>
 
 ## Running the benchmarks:
 
