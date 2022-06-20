@@ -18,7 +18,8 @@
     "msgpack5": "^4.2.1",
     "notepack": "^0.0.2",
     "notepack.io": "^2.2.0",
-    "what-the-pack": "^1.1.7"
+    "what-the-pack": "^1.1.7",
+    "msgpackr": "^1.6.1"
   },
   "dependencies": {
     "cbor": "^4.1.5",
