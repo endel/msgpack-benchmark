@@ -13,6 +13,7 @@ There is four input files to encode/decode.
 
 MsgPack implementations:
 
+- [json-joy](https://www.npmjs.com/package/json-joy)
 - [msgpackr](https://www.npmjs.com/package/msgpackr)
 - [@msgpack/msgpack](https://www.npmjs.com/package/@msgpack/msgpack)
 - [msgpack](https://www.npmjs.com/package/msgpack)
