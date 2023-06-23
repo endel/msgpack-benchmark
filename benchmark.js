@@ -1,5 +1,11 @@
 "use strict";
 
+var {MsgPackEncoderFast} = require('json-joy/es2020/json-pack/msgpack/MsgPackEncoderFast');
+var {MsgPackDecoderFast} = require('json-joy/es2020/json-pack/msgpack/MsgPackDecoderFast');
+
+var jsonJoyEncoder = new MsgPackEncoderFast();
+var jsonJoyDecoder = new MsgPackDecoderFast();
+
 var Benchmark = require('benchmark')
   , fs = require('fs')
 
@@ -7,6 +13,10 @@ var Benchmark = require('benchmark')
 
   // msgpack implementations
   , implementations = {
+    'json-joy': {
+      encode: jsonJoyEncoder.encode.bind(jsonJoyEncoder),
+      decode: jsonJoyDecoder.decode.bind(jsonJoyDecoder),
+    },
     '@msgpack/msgpack': {
       encode: require('@msgpack/msgpack').encode,
       decode: require('@msgpack/msgpack').decode

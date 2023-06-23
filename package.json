@@ -16,13 +16,14 @@
     "msgpack-js-v5": "^0.3.0-v5",
     "msgpack-lite": "^0.1.26",
     "msgpack5": "^4.2.1",
+    "msgpackr": "^1.6.1",
     "notepack": "^0.0.2",
     "notepack.io": "^2.2.0",
-    "what-the-pack": "^1.1.7",
-    "msgpackr": "^1.6.1"
+    "what-the-pack": "^1.1.7"
   },
   "dependencies": {
     "cbor": "^4.1.5",
-    "cbor-js": "^0.1.0"
+    "cbor-js": "^0.1.0",
+    "json-joy": "^9.3.0"
   }
 }
