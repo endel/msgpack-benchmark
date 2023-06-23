@@ -15,7 +15,7 @@ var Benchmark = require('benchmark')
   , implementations = {
     'json-joy': {
       encode: jsonJoyEncoder.encode.bind(jsonJoyEncoder),
-      decode: jsonJoyDecoder.decode.bind(jsonJoyDecoder),
+      decode: jsonJoyDecoder.decode.bind(jsonJoyDecoder)
     },
     '@msgpack/msgpack': {
       encode: require('@msgpack/msgpack').encode,
@@ -66,8 +66,8 @@ var Benchmark = require('benchmark')
     //   decode: require('cbor-js').decode
     // },
     'JSON': {
-      encode: JSON.stringify,
-      decode: JSON.parse
+      encode: data => Buffer.from(JSON.stringify(data)),
+      decode: buf => JSON.parse(buf.toString())
     },
   }
 
