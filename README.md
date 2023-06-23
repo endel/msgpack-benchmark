@@ -13,6 +13,7 @@ There is four input files to encode/decode.
 
 MsgPack implementations:
 
+- [json-joy](https://www.npmjs.com/package/json-joy)
 - [msgpackr](https://www.npmjs.com/package/msgpackr)
 - [@msgpack/msgpack](https://www.npmjs.com/package/@msgpack/msgpack)
 - [msgpack](https://www.npmjs.com/package/msgpack)
@@ -29,165 +30,169 @@ Results are using Node v16.14.0 on MacBook Pro (M1, 2020).
 
 ### sample-datatypes.json
 
- - Encoding winner: `msgpackr`
- - Decoding winner: `JSON`
-
+ - Encoding winner: `json-joy`
+ - Decoding winner: `json-joy`
 <table>
 <tr><th>Encoding</th><th>Decoding</th></tr>
 <tr><td>
 
 | Implementation | ops/sec |
 | ------------- | ------- |
-| `msgpackr` | 519,030 |
-| `JSON` | 328,367 |
-| `notepack.io` | 285,528 |
-| `what-the-pack (browser)` | 284,308 |
-| `@msgpack/msgpack` | 260,240 |
-| `what-the-pack` | 254,762 |
-| `notepack` | 238,226 |
-| `notepack.io (browser)` | 199,181 |
-| `msgpack-lite` | 155,759 |
-| `msgpack5` | 73,907 |
-| `msgpack-js-v5` | 37,626 |
+| `json-joy` | 660,519 |
+| `msgpackr` | 543,668 |
+| `notepack.io` | 297,895 |
+| `@msgpack/msgpack` | 276,703 |
+| `notepack` | 260,247 |
+| `what-the-pack (browser)` | 253,199 |
+| `what-the-pack` | 249,037 |
+| `JSON` | 216,015 |
+| `notepack.io (browser)` | 203,143 |
+| `msgpack-lite` | 153,727 |
+| `msgpack5` | 46,241 |
+| `msgpack-js-v5` | 33,647 |
 
 </td><td>
 
 | Implementation | ops/sec |
 | ------------- | ------- |
-| `JSON` | 489,645 |
-| `msgpackr` | 274,537 |
-| `@msgpack/msgpack` | 210,725 |
-| `what-the-pack (browser)` | 159,898 |
-| `what-the-pack` | 159,527 |
-| `notepack.io (browser)` | 149,917 |
-| `notepack.io` | 149,272 |
-| `notepack` | 142,453 |
-| `msgpack-js-v5` | 134,128 |
-| `msgpack-lite` | 92,610 |
-| `msgpack5` | 66,461 |
+| `json-joy` | 345,355 |
+| `JSON` | 303,160 |
+| `@msgpack/msgpack` | 289,358 |
+| `msgpackr` | 269,867 |
+| `notepack.io` | 182,685 |
+| `what-the-pack (browser)` | 182,600 |
+| `what-the-pack` | 181,455 |
+| `notepack` | 180,001 |
+| `notepack.io (browser)` | 153,735 |
+| `msgpack-js-v5` | 131,938 |
+| `msgpack-lite` | 100,549 |
+| `msgpack5` | 53,422 |
 
 </td></tr> </table>
 
 ### sample-small.json
 
- - Encoding winner: `msgpackr`
+ - Encoding winner: `json-joy`
  - Decoding winner: `msgpackr`
-
 <table>
 <tr><th>Encoding</th><th>Decoding</th></tr>
 <tr><td>
 
 | Implementation | ops/sec |
 | ------------- | ------- |
-| `msgpackr` | 3,296,833 |
-| `notepack.io` | 2,754,635 |
-| `JSON` | 2,447,656 |
-| `notepack` | 2,380,863 |
-| `what-the-pack (browser)` | 2,356,787 |
-| `what-the-pack` | 1,994,327 |
-| `@msgpack/msgpack` | 1,454,569 |
-| `notepack.io (browser)` | 1,453,012 |
-| `msgpack-lite` | 628,253 |
-| `msgpack-js-v5` | 617,212 |
-| `msgpack5` | 425,951 |
+| `json-joy` | 4,900,968 |
+| `msgpackr` | 3,354,447 |
+| `notepack.io` | 2,821,393 |
+| `notepack` | 2,419,810 |
+| `what-the-pack (browser)` | 1,956,804 |
+| `JSON` | 1,761,681 |
+| `what-the-pack` | 1,726,668 |
+| `notepack.io (browser)` | 1,444,101 |
+| `@msgpack/msgpack` | 1,344,524 |
+| `msgpack-lite` | 765,941 |
+| `msgpack-js-v5` | 625,410 |
+| `msgpack5` | 288,228 |
 
 </td><td>
 
 | Implementation | ops/sec |
 | ------------- | ------- |
-| `msgpackr` | 4,037,031 |
-| `JSON` | 2,498,714 |
-| `notepack` | 2,390,280 |
-| `@msgpack/msgpack` | 2,256,549 |
-| `notepack.io (browser)` | 2,076,171 |
-| `what-the-pack` | 1,809,675 |
-| `what-the-pack (browser)` | 1,795,122 |
-| `notepack.io` | 1,768,158 |
-| `msgpack-js-v5` | 1,487,882 |
-| `msgpack-lite` | 872,539 |
-| `msgpack5` | 629,429 |
+| `msgpackr` | 4,168,419 |
+| `json-joy` | 2,685,832 |
+| `notepack` | 2,269,496 |
+| `JSON` | 2,190,008 |
+| `what-the-pack (browser)` | 2,165,320 |
+| `notepack.io` | 2,157,822 |
+| `what-the-pack` | 2,149,319 |
+| `@msgpack/msgpack` | 2,083,927 |
+| `notepack.io (browser)` | 1,946,342 |
+| `msgpack-js-v5` | 1,359,728 |
+| `msgpack-lite` | 949,306 |
+| `msgpack5` | 399,200 |
 
 </td></tr> </table>
 
 ### sample-medium.json
 
- - Encoding winner: `JSON`
- - Decoding winner: `JSON`
-
+ - Encoding winner: `json-joy`
+ - Decoding winner: `json-joy`
 <table>
 <tr><th>Encoding</th><th>Decoding</th></tr>
 <tr><td>
 
 | Implementation | ops/sec |
 | ------------- | ------- |
-| `JSON` | 1,452,513 |
-| `msgpackr` | 1,319,836 |
-| `notepack.io` | 910,529 |
-| `what-the-pack (browser)` | 802,090 |
-| `notepack.io (browser)` | 743,235 |
-| `notepack` | 701,198 |
-| `what-the-pack` | 680,024 |
-| `@msgpack/msgpack` | 651,136 |
-| `msgpack-lite` | 324,384 |
-| `msgpack5` | 207,193 |
-| `msgpack-js-v5` | 169,692 |
+| `json-joy` | 1,863,131 |
+| `msgpackr` | 1,265,100 |
+| `notepack.io` | 978,609 |
+| `JSON` | 904,582 |
+| `notepack.io (browser)` | 755,540 |
+| `what-the-pack (browser)` | 754,026 |
+| `@msgpack/msgpack` | 729,451 |
+| `notepack` | 705,566 |
+| `what-the-pack` | 644,219 |
+| `msgpack-lite` | 365,645 |
+| `msgpack-js-v5` | 182,467 |
+| `msgpack5` | 154,998 |
 
 </td><td>
 
 | Implementation | ops/sec |
 | ------------- | ------- |
-| `JSON` | 1,302,597 |
-| `msgpackr` | 1,148,712 |
-| `@msgpack/msgpack` | 908,896 |
-| `notepack.io (browser)` | 622,931 |
-| `what-the-pack (browser)` | 500,688 |
-| `notepack.io` | 495,854 |
-| `what-the-pack` | 490,752 |
-| `notepack` | 482,038 |
-| `msgpack-js-v5` | 417,884 |
-| `msgpack-lite` | 268,590 |
-| `msgpack5` | 236,800 |
+| `json-joy` | 1,288,165 |
+| `JSON` | 1,146,031 |
+| `msgpackr` | 1,140,870 |
+| `@msgpack/msgpack` | 863,936 |
+| `notepack.io` | 631,896 |
+| `what-the-pack` | 627,725 |
+| `notepack` | 624,421 |
+| `what-the-pack (browser)` | 623,304 |
+| `notepack.io (browser)` | 580,655 |
+| `msgpack-js-v5` | 410,604 |
+| `msgpack-lite` | 303,541 |
+| `msgpack5` | 175,024 |
 
 </td></tr> </table>
 
 ### sample-large.json
 
- - Encoding winner: `JSON`
- - Decoding winner: `JSON`
-
+ - Encoding winner: `json-joy`
+ - Decoding winner: `msgpackr`
 <table>
 <tr><th>Encoding</th><th>Decoding</th></tr>
 <tr><td>
 
 | Implementation | ops/sec |
 | ------------- | ------- |
-| `JSON` | 68,796 |
-| `msgpackr` | 51,768 |
-| `notepack.io` | 32,315 |
-| `what-the-pack (browser)` | 31,649 |
-| `notepack` | 29,389 |
-| `notepack.io (browser)` | 29,194 |
-| `what-the-pack` | 28,273 |
-| `@msgpack/msgpack` | 28,154 |
-| `msgpack-lite` | 22,422 |
-| `msgpack5` | 13,324 |
-| `msgpack-js-v5` | 8,006 |
+| `json-joy` | 70,003 |
+| `msgpackr` | 53,742 |
+| `notepack.io` | 34,894 |
+| `JSON` | 33,162 |
+| `notepack` | 31,755 |
+| `what-the-pack (browser)` | 30,386 |
+| `@msgpack/msgpack` | 29,746 |
+| `notepack.io (browser)` | 28,096 |
+| `what-the-pack` | 27,906 |
+| `msgpack-lite` | 22,590 |
+| `msgpack5` | 8,695 |
+| `msgpack-js-v5` | 8,081 |
 
 </td><td>
 
 | Implementation | ops/sec |
 | ------------- | ------- |
-| `JSON` | 77,276 |
-| `msgpackr` | 67,232 |
-| `@msgpack/msgpack` | 26,583 |
-| `notepack.io` | 25,326 |
-| `what-the-pack` | 24,755 |
-| `what-the-pack (browser)` | 24,589 |
-| `notepack` | 23,734 |
-| `msgpack-js-v5` | 21,752 |
-| `notepack.io (browser)` | 19,927 |
-| `msgpack-lite` | 12,912 |
-| `msgpack5` | 12,315 |
+| `msgpackr` | 65,731 |
+| `json-joy` | 54,277 |
+| `JSON` | 47,965 |
+| `@msgpack/msgpack` | 30,613 |
+| `what-the-pack (browser)` | 29,995 |
+| `what-the-pack` | 29,931 |
+| `notepack` | 29,896 |
+| `notepack.io` | 29,126 |
+| `notepack.io (browser)` | 20,192 |
+| `msgpack-js-v5` | 18,738 |
+| `msgpack-lite` | 14,318 |
+| `msgpack5` | 9,950 |
 
 </td></tr> </table>
 
