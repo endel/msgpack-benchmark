@@ -15,7 +15,7 @@
     "mocha": "^5.2.0",
     "msgpack-js-v5": "^0.3.0-v5",
     "msgpack-lite": "^0.1.26",
-    "msgpack5": "^4.2.1",
+    "msgpack5": "^4.5.1",
     "notepack": "^0.0.2",
     "notepack.io": "^2.2.0",
     "what-the-pack": "^1.1.7",
